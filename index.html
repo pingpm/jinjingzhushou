@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI规划路线</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="modal.css">
+    <link rel="stylesheet" href="navigation-background.css">
+</head>
+<body>
+    
+    <header class="hero">
+
+        <div class="orb"></div>
+        <div class="orb orb-second"></div>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo">        
+        </div>
+        <div class="nav-links">
+            <a href="support.html" class="support-btn">支持与联系</a>
+        </div>
+        <div class="hero-content">
+            <h1>AI智能规划路线</h1>
+            <p class="subtitle">提供北京市进京证相关信息，AI智能规划路线</p>
+            <p class="platforms">支持iOS、Android、小程序</p>
+            <div class="download-section">
+                <button class="download-btn">立即下载</button>
+                <p class="users-count"><span class="dot"></span>20000+ 用户正在使用中</p>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+
+        <section class="features">
+            <h2>我们可以做到</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="emoji">😊</div>
+                    <h3>实时更新位置</h3>
+                    <p>所有摄像头均可查看详细位置</p>
+                </div>
+                <div class="feature-item">
+                    <div class="emoji">😄</div>
+                    <h3>支持在线反馈</h3>
+                    <p>在线反馈新的摄像头位置</p>
+                </div>
+                <div class="feature-item">
+                    <div class="emoji">👆</div>
+                    <h3>AI规划路线</h3>
+                    <p>强大的AI计算最优规划路线</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="free-section">
+            <h2>免费使用，智能规划</h2>
+            <p>强大的AI规划路线能力，可以帮助司机避开摄像头</p>
+            <div class="app-screenshots">
+                <div class="screenshot">
+                    <img src="images/1.png" alt="查看所有位置">
+
+                </div>
+                <div class="screenshot">
+                    <img src="images/2.png" alt="查看详细位置">
+  
+                </div>
+                <div class="screenshot">
+                    <img src="images/3.png" alt="避开规划路线">
+      
+                </div>
+                <div class="screenshot">
+                    <img src="images/4.png" alt="避开规划路线">
+  
+                </div>
+            </div>
+        </section>
+
+    </div>
+    
+    <section class="users-section">
+        <h2>已经帮助20000+司机智能规划路线</h2>
+        <div class="user-avatars">
+            <!-- 用户头像将通过CSS背景图片方式添加 -->
+            <div class="avatar-grid"></div>
+        </div>
+    </section>
+    
+    <div class="container">
+        <footer class="footer">
+            <p class="contact-email">问题反馈和摄像头上报请联系邮箱：<a href="mailto:pmwangping@gmail.com">pmwangping@gmail.com</a></p>
+        
+
+        </footer>
+        
+    </div>
+    <!-- 弹窗结构 -->
+    <div class="modal-overlay" id="qrModal">
+        <div class="modal-container">
+            <span class="modal-close" id="closeModal">&times;</span>
+            <h3 class="modal-title">扫码下载</h3>
+            <div class="modal-content">
+                <img src="images/webQr.png" alt="下载二维码">
+            </div>
+            <p class="modal-message">请使用手机扫描二维码下载应用</p>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="wechatModal">
+        <div class="modal-container">
+            <span class="modal-close" id="closeWechatModal">&times;</span>
+            <h3 class="modal-title">提示</h3>
+            <p class="modal-message">请在浏览器中打开链接进行下载</p>
+            <button class="modal-button" id="wechatConfirmBtn">确定</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="navigation-background.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const downloadBtn = document.querySelector('.download-btn');
+            const qrModal = document.getElementById('qrModal');
+            const wechatModal = document.getElementById('wechatModal');
+            const closeModal = document.getElementById('closeModal');
+            const closeWechatModal = document.getElementById('closeWechatModal');
+            const wechatConfirmBtn = document.getElementById('wechatConfirmBtn');
+            
+            // 检测用户环境
+            function detectEnvironment() {
+                const userAgent = navigator.userAgent.toLowerCase();
+                
+                // 检测是否为微信环境
+                if (userAgent.indexOf('micromessenger') !== -1) {
+                    return 'wechat';
+                }
+                
+                // 检测是否为iOS设备
+                if (/iphone|ipad|ipod/.test(userAgent)) {
+                    return 'ios';
+                }
+                
+                // 检测是否为Android设备
+                if (userAgent.indexOf('android') !== -1) {
+                    return 'android';
+                }
+                
+                // 默认为PC/Mac环境
+                return 'pc';
+            }
+            
+            // 显示弹窗
+            function showModal(modalElement) {
+                modalElement.style.display = 'flex';
+                // 添加一个小延迟，确保display:flex生效后再添加show类，以触发动画
+                setTimeout(() => {
+                    modalElement.classList.add('show');
+                }, 10);
+            }
+            
+            // 隐藏弹窗
+            function hideModal(modalElement) {
+                modalElement.classList.remove('show');
+                // 等待动画完成后再隐藏元素
+                setTimeout(() => {
+                    modalElement.style.display = 'none';
+                }, 500); // 与CSS中的transition时间匹配
+            }
+            
+            // 下载按钮点击事件
+            downloadBtn.addEventListener('click', function() {
+                const environment = detectEnvironment();
+                
+                switch (environment) {
+                    case 'pc':
+                        // PC/Mac环境直接显示二维码，不显示下载提示
+                        showModal(qrModal);
+                        break;
+                    case 'wechat':
+                        // 微信环境提示在浏览器打开
+                        showModal(wechatModal);
+                        break;
+                    case 'android':
+                        // Android环境直接跳转下载链接
+                        window.location.href = 'https://jinjingzhushou.s3.us-east-1.amazonaws.com/jinjingzhushou_v1.1.1.apk';
+                        break;
+                    case 'ios':
+                        // iOS环境跳转App Store
+                        window.location.href = 'https://apps.apple.com/us/app/%E8%BF%9B%E4%BA%AC%E5%8A%A9%E6%89%8B/id6743420176';
+                        break;
+                }
+            });
+            
+            // 关闭二维码弹窗
+            closeModal.addEventListener('click', function() {
+                hideModal(qrModal);
+            });
+            
+            // 关闭微信提示弹窗
+            closeWechatModal.addEventListener('click', function() {
+                hideModal(wechatModal);
+            });
+            
+            // 微信提示弹窗确认按钮
+            wechatConfirmBtn.addEventListener('click', function() {
+                hideModal(wechatModal);
+            });
+            
+            // 点击弹窗外部区域关闭弹窗
+            qrModal.addEventListener('click', function(event) {
+                if (event.target === qrModal) {
+                    hideModal(qrModal);
+                }
+            });
+            
+            wechatModal.addEventListener('click', function(event) {
+                if (event.target === wechatModal) {
+                    hideModal(wechatModal);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+/* 导航背景样式 */
+.navigation-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+/* 地图网格样式 */
+.map-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.grid-line {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.grid-line.horizontal {
+    width: 100%;
+    height: 1px;
+}
+
+.grid-line.vertical {
+    width: 1px;
+    height: 100%;
+}
+
+/* 路线样式 */
+.routes-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.route {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.nav-point {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px currentColor;
+}
+
+/* 导航标记点样式 */
+.markers-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.nav-marker {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #FF5722;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 8px 2px rgba(255, 87, 34, 0.6);
+    animation: pulse 2s infinite;
+}
+
+.marker-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 87, 34, 0.4);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+    }
+}
+
+/* 路径绘制动画 */
+@keyframes drawRoute {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
